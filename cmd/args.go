@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 )
 
@@ -28,9 +29,10 @@ func ExtractArgs() Args {
 			extractedArgs.Encrypt = false
 		}
 		// for key file & main file to process
+		fmt.Println(arg)
 		if len(arg) > 6 {
-			if arg[0:6] == "file=" {
-				extractedArgs.Filepath = arg[6:]
+			if arg[0:5] == "file=" {
+				extractedArgs.Filepath = arg[5:]
 			}
 			if arg[0:4] == "key=" {
 				extractedArgs.KeyfilePath = arg[4:]
