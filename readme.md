@@ -2,6 +2,9 @@
 
 A complete implementation of TEA (Tiny Encryption Algorithm) encryption and decryption for files.
 
+## Workflow
+<img width="1485" alt="Screenshot 2025-06-25 at 18 51 43" src="https://github.com/user-attachments/assets/78cc9342-4263-4073-8b4c-e36f33f36a7e" />
+
 ## Features
 
 - **TEA Encryption/Decryption**: Full implementation of the Tiny Encryption Algorithm
