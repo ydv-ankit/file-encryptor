@@ -37,10 +37,16 @@ func DecryptData(data []byte, keyBytes []byte) []byte {
 		binary.BigEndian.PutUint32(decrypted[i+4:i+8], v1)
 	}
 
-	// Remove padding (trailing null bytes)
-	for len(decrypted) > 0 && decrypted[len(decrypted)-1] == 0 {
-		decrypted = decrypted[:len(decrypted)-1]
+	// Read the original file length from the first 8 bytes
+	if len(decrypted) < 8 {
+		panic("invalid encrypted file: too short")
+	}
+	originalLength := binary.BigEndian.Uint64(decrypted[0:8])
+
+	// Extract the original data (skip the 8-byte length header)
+	if uint64(len(decrypted)) < 8+originalLength {
+		panic("invalid encrypted file: corrupted data")
 	}
 
-	return decrypted
+	return decrypted[8 : 8+originalLength]
 }

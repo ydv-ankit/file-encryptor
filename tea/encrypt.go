@@ -17,14 +17,22 @@ func EncryptData(data []byte, keyBytes []byte) []byte {
 		binary.BigEndian.Uint32(keyBytes[12:16]),
 	}
 
+	// Store original length at the beginning (8 bytes)
+	originalLength := uint64(len(data))
+	lengthBytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(lengthBytes, originalLength)
+
+	// Combine length and data
+	dataWithLength := append(lengthBytes, data...)
+
 	// Pad data to be multiple of 8 bytes
-	if len(data)%8 != 0 {
-		padding := make([]byte, 8-len(data)%8)
-		data = append(data, padding...)
+	if len(dataWithLength)%8 != 0 {
+		padding := make([]byte, 8-len(dataWithLength)%8)
+		dataWithLength = append(dataWithLength, padding...)
 	}
 
-	encrypted := make([]byte, len(data))
-	copy(encrypted, data)
+	encrypted := make([]byte, len(dataWithLength))
+	copy(encrypted, dataWithLength)
 
 	const delta = 0x9E3779B9
 
