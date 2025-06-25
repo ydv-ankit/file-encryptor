@@ -12,7 +12,7 @@ func main() {
 	// get args from cli
 	args := cmd.ExtractArgs()
 
-	// // Read file content
+	// Read file content
 	fileContent := cmd.ReadFileContent(args.Filepath)
 	fmt.Printf("Processing file: %s (%d bytes)\n", args.Filepath, len(fileContent))
 
